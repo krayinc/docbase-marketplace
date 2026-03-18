@@ -1,0 +1,13 @@
+{
+  "name": "docbase-marketplace",
+  "owner": {
+    "name": "KRAY Inc."
+  },
+  "plugins": [
+    {
+      "name": "docbase-cli",
+      "source": "./plugins/docbase-cli",
+      "version": "0.0.1"
+    }
+  ]
+}
