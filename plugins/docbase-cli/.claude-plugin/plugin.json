@@ -1,7 +1,6 @@
 {
   "name": "docbase-cli",
   "description": "DocBase CLI skill for AI agents - search, read, create, and manage DocBase memos via CLI",
-  "version": "0.0.1",
   "author": {
     "name": "KRAY Inc."
   },

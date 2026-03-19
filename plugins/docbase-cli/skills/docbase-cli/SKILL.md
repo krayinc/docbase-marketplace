@@ -1,118 +1,100 @@
 ---
-name: docbase-cli
-description: DocBase knowledge base CLI. Search/read/create/update memos, comments, users, groups, tags, attachments. Use when the user needs to interact with DocBase memos or team knowledge.
+name: docbase
+description: DocBaseのメモ・コメント・ユーザー・グループ・タグ・グッジョブ・添付ファイルを操作するCLIツール。「メモ読んで」「メモ検索して」「コメントして」「DocBaseに投稿して」といったリクエストで使う。
 ---
 
 # DocBase CLI
 
-Knowledge base operations via CLI. Check `docbase --help` for full options.
+## 認証
 
-## Quick start
+`docbase auth status` で確認。未認証なら `docbase auth login` を実行。
 
+## メモ（posts）
+
+### 検索
 ```bash
-docbase auth status
-docbase posts search -q "search query"
-docbase posts get 1234567
-docbase posts create --title "Title" --body "Body" --draft
+docbase posts search -q "検索クエリ" --per-page 20 -p 1
 ```
 
-## Core workflow
-
-1. Search: `docbase posts search -q "keyword"`
-2. Read: `docbase posts get <id>`
-3. Create/Update with `--draft` by default
-
-## Commands
-
-### Memos
-
+### 取得
 ```bash
-docbase posts search -q "query" --per-page 20 --summary
 docbase posts get <id>
-docbase posts create --title "Title" --body "Body" --draft --tags "tag1" "tag2" --scope private --no-notice
-docbase posts update <id> --title "New title" --body "New body"
+```
+
+### 作成
+```bash
+docbase posts create \
+  --title "タイトル" \
+  --body "本文（Markdown）" \
+  --draft \
+  --tags "タグ1" "タグ2" \
+  --scope private \
+  --no-notice
+```
+- `-t, --title <string>` タイトル
+- `-b, --body <string>` 本文（Markdown）
+- `-d, --draft` 下書きとして投稿（デフォルト: false）
+- `--tags <tags...>` タグ（複数指定可）
+- `-s, --scope <scope>` 公開範囲: `everyone` / `group` / `private`（デフォルト: private）
+- `--group-ids <ids...>` 公開グループID（scope=group時に必要）
+- `--notice / --no-notice` 通知する/しない（デフォルト: true）
+
+**scopeとdraftの組み合わせルール:**
+- 指定なし or 下書き → `--draft`（scopeなし）
+- 自分のみ公開 → `--scope private`（draftなし）
+- グループ公開 → `--scope group --group-ids 100 200`（draftなし）
+
+**長い本文はHEREDOCを使う:**
+```bash
+docbase posts create --title "タイトル" --draft --body "$(cat <<'EOF'
+## 見出し
+
+本文をここに書く。
+EOF
+)"
+```
+
+### 更新
+```bash
+docbase posts update <id> --title "新タイトル" --body "新本文"
+```
+オプションは `create` と同じ。加えて `--no-draft` で下書き解除。
+
+### 削除 / アーカイブ
+```bash
 docbase posts delete <id>
 docbase posts archive <id>
 docbase posts unarchive <id>
 ```
 
-Key options for `create`/`update`:
-- `--scope <everyone|group|private>` (default: private)
-- `--group-ids <ids...>` (required when scope=group)
-- `--draft` / `--no-draft`
-- `--tags <tags...>`
-- `--notice` / `--no-notice`
-- `--author-id <number>` - poster user ID
-- `--published-at <datetime>` - ISO-8601 format
-
-### Comments
+## コメント（comments）
 
 ```bash
 docbase comments list <post-id> --per-page 20 --order desc
-docbase comments list <post-id> --created-after 2026-01-01 --created-before 2026-03-01
-docbase comments create <post-id> --body "Comment body" --no-notice
+docbase comments create <post-id> --body "コメント内容" --no-notice
 docbase comments delete <comment-id>
 ```
 
-### Users
+長いコメントはHEREDOC（posts createと同様）を使う。
+
+## その他（`docbase <command> --help` で詳細確認）
 
 ```bash
-docbase users search -q "name"
+docbase users search -q "名前" --per-page 100
 docbase users get-profile
-docbase users get-groups <user-id>
-docbase users delete <user-id>
-```
-
-### Groups
-
-```bash
-docbase groups search --name "Group name"
+docbase groups search --name "グループ名"
 docbase groups get <group-id>
-docbase groups create --name "Name" --description "Desc"
+docbase groups create --name "名前"
 docbase groups add-users <group-id> --user-ids 1 2 3
 docbase groups remove-users <group-id> --user-ids 1 2 3
-```
-
-### Tags / Good Jobs / Attachments
-
-```bash
 docbase tags list
-docbase good-jobs list <post-id>
-docbase good-jobs create <post-id> --no-notice
-docbase good-jobs delete <post-id> <good-job-id>
+docbase good-jobs create <post-id>
 docbase attachments upload --file /path/to/file
 docbase attachments download <file-id> -o /path/to/save
 ```
 
-## Example: Search and summarize
-
-```bash
-docbase posts search -q "quarterly report" --summary
-docbase posts get 1234567
-docbase posts create --title "Summary" --body "..." --draft --tags "summary"
-```
-
-## Example: Long body with HEREDOC
-
-```bash
-docbase posts create --title "Title" --draft --body "$(cat <<'EOF'
-## Heading
-
-Markdown body here.
-EOF
-)"
-```
-
-## Example: Update memo scope
-
-```bash
-docbase posts update <id> --scope group --group-ids 100 200 --no-draft
-```
-
 ## Tips
 
-- Memo URL `https://your-team.docbase.io/posts/1234567` → ID is `1234567`
-- Output is JSON. Parse with `jq` or `python3 -c "import json,sys; ..."`
-- Use `docbase <command> --help` for detailed options
-- Install: `npm install -g @krayinc/docbase-cli`
-- Auth: `docbase auth login` (OAuth) then set team via env or config
+- メモURL `https://kray.docbase.io/posts/1234567` → ID は `1234567`
+- 出力はすべてJSON。`jq` や `python3 -c "import json,sys; ..."` でパース可
+- 更新時はまず `posts get` で現在の本文を取得してから変更を加える
