@@ -1,5 +1,8 @@
 {
   "name": "docbase-marketplace",
+  "metadata": {
+    "description": "DocBaseのメモ・コメント・ユーザー・グループなどを効率的に操作するプラグイン集"
+  },
   "owner": {
     "name": "KRAY Inc."
   },
