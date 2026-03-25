@@ -1,0 +1,1 @@
+@./plugins/docbase-cli/skills/docbase-cli/SKILL.md
