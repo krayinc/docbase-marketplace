@@ -6,6 +6,5 @@
   },
   "homepage": "https://github.com/krayinc/docbase-marketplace",
   "license": "MIT",
-  "keywords": ["docbase", "cli", "knowledge-base"],
-  "version": "0.0.1"
+  "keywords": ["docbase", "cli", "knowledge-base"]
 }
