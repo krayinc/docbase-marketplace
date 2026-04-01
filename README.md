@@ -36,7 +36,7 @@ A skill that enables Claude Code to operate DocBase through the [DocBase CLI](ht
 
 ## Prerequisites
 
-- Claude Code installed
+- Claude Code, Gemini CLI, Codex CLI, or Cursor installed
 - [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli) (`@krayinc/docbase-cli`) installed
 - Authenticated with DocBase CLI (`docbase auth login`)
 
@@ -56,9 +56,66 @@ Enter your DocBase API token and team name. You can generate an API token from y
 
 ## Installation
 
+### Claude Code
+
 ```
 /plugin marketplace add krayinc/docbase-marketplace
 /plugin install docbase-cli@docbase-marketplace
+```
+
+### Codex CLI
+
+Run the following in Codex CLI:
+
+```
+$skill-installer https://github.com/krayinc/docbase-marketplace
+```
+
+Or manually copy the skill to your project or user [skills directory](https://developers.openai.com/codex/skills#install-curated-skills-for-local-use):
+
+```bash
+git clone https://github.com/krayinc/docbase-marketplace.git
+
+# Project-level
+mkdir -p .agents/skills
+cp -r docbase-marketplace/skills/docbase-cli .agents/skills/
+
+# Or user-level
+cp -r docbase-marketplace/skills/docbase-cli ~/.agents/skills/
+```
+
+Restart Codex after installation.
+
+### Cursor
+
+> The plugin is currently under review for publication on the official Cursor Marketplace.
+
+#### Team Marketplace
+
+Admins on Teams/Enterprise plans can import this repository as a [team marketplace](https://cursor.com/docs/plugins#add-a-team-marketplace):
+
+1. Go to **[Plugins](https://cursor.com/dashboard/plugins) → Team Marketplaces**
+2. Click **+ Import**
+3. Enter the repository URL: `https://github.com/krayinc/docbase-marketplace`
+4. Review parsed plugins, configure access groups, then save
+
+Team members can search for `docbase` in Cursor Settings → Plugins to install the plugin.
+
+#### Local Installation
+
+```bash
+git clone https://github.com/krayinc/docbase-marketplace.git
+cp -r docbase-marketplace/plugins/docbase-cli ~/.cursor/plugins/local/docbase-cli
+```
+
+Restart Cursor after copying.
+
+> **Note:** Symbolic links are not supported. You must copy the files.
+
+### Gemini CLI
+
+```bash
+gemini extensions install https://github.com/krayinc/docbase-marketplace
 ```
 
 ## Author
