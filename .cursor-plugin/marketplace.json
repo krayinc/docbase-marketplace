@@ -4,6 +4,7 @@
   "metadata": {
     "description": "DocBase plugins for AI coding agents"
   },
+  "logo": "assets/logo.svg",
   "plugins": [
     {
       "name": "docbase-cli",
