@@ -1,0 +1,14 @@
+{
+  "name": "docbase-marketplace",
+  "owner": { "name": "KRAY Inc." },
+  "metadata": {
+    "description": "DocBase plugins for AI coding agents"
+  },
+  "logo": "assets/logo.svg",
+  "plugins": [
+    {
+      "name": "docbase-cli",
+      "source": "./plugins/docbase-cli"
+    }
+  ]
+}
