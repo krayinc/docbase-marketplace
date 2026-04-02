@@ -2,17 +2,17 @@
 
 # DocBase Marketplace
 
-A collection of Claude Code plugins for interacting with [DocBase](https://docbase.io) — a knowledge sharing platform for teams.
+A collection of plugins for using [DocBase](https://docbase.io) from AI agents.
 
 ## Overview
 
-DocBase Marketplace provides plugins that let AI agents (Claude Code) directly operate your DocBase knowledge base. With natural language instructions, you can search, create, and edit memos, post comments, manage users and groups, and more.
+DocBase Marketplace provides plugins that let AI agents directly operate your DocBase knowledge base. With natural language instructions, you can search, create, and edit memos, post comments, manage users and groups, and more.
 
 ## Plugins
 
 ### docbase-cli
 
-A skill that enables Claude Code to operate DocBase through the [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli).
+A skill that enables AI agents to operate DocBase through the [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli).
 
 #### Features
 
