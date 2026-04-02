@@ -2,17 +2,17 @@
 
 # DocBase Marketplace
 
-[DocBase](https://docbase.io)をAIエージェントから活用するためのClaude Codeプラグイン集です。
+[DocBase](https://docbase.io)をAIエージェントから活用するためのプラグイン集です。
 
 ## 概要
 
-DocBase Marketplaceは、AIエージェント（Claude Code）からDocBaseのナレッジベースを直接操作できるプラグインを提供します。自然言語での指示だけで、メモの検索・作成・編集、コメント、ユーザー・グループ管理などが行えます。
+DocBase Marketplaceは、AIエージェントからDocBaseのナレッジベースを直接操作できるプラグインを提供します。自然言語での指示だけで、メモの検索・作成・編集、コメント、ユーザー・グループ管理などが行えます。
 
 ## 含まれるプラグイン
 
 ### docbase-cli
 
-[DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli)を活用し、Claude CodeからDocBaseを操作するスキルです。
+[DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli)を活用し、AIエージェントからDocBaseを操作するスキルです。
 
 #### 主な機能
 
