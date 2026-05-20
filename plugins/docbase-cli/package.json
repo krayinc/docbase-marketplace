@@ -1,6 +1,6 @@
 {
   "name": "@krayinc/docbase-cli-skill",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "DocBase CLI skill for AI agents",
   "license": "MIT"
 }
