@@ -14,7 +14,10 @@ description: DocBaseのメモ・コメント・ユーザー・グループ・タ
 ### 検索
 ```bash
 docbase posts search -q "検索クエリ" --per-page 20 -p 1
+docbase posts search -q "障害時の対応方法" --semantic-search
 ```
+
+`--semantic-search` でキーワードに加えて意味的に近いメモも検索する。言い回しが揺れそうな自然文のクエリで使う。実際に適用されたかはレスポンスの `meta.semantic_search` で分かる（チームでAI機能が無効な場合などは通常の検索になる）。
 
 ### 取得
 ```bash
@@ -66,7 +69,8 @@ docbase posts update <id> --title "新タイトル" --body "新本文"
 ### 部分更新
 ```bash
 docbase posts patch-body <id> \
-  --op '{"start":2,"end":2,"old_content":"2行目","content":"新しい2行目"}'
+  --op '{"start":2,"end":2,"old_content":"2行目","content":"新しい2行目"}' \
+  --no-notice
 ```
 
 本文を行単位で部分更新する。本文全体を送り直す `update` より転送量・競合リスクが小さい。
@@ -112,3 +116,4 @@ docbase attachments download <file-id> -o /path/to/save
 - メモURL `https://kray.docbase.io/posts/1234567` → ID は `1234567`
 - 出力はすべてJSON。`jq` や `python3 -c "import json,sys; ..."` でパース可
 - 更新時はまず `posts get` で現在の本文を取得してから変更を加える
+- `posts create` / `update` / `patch-body` の応答には本文が含まれない。必要なら `--include-body` を付ける
