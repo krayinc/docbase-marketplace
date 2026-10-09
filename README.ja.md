@@ -37,13 +37,13 @@ DocBase Marketplaceは、AIエージェントからDocBaseのナレッジベー�
 ## 前提条件
 
 - Claude Code、Gemini CLI、Codex CLI、Cursor のいずれかがインストール済みであること
-- [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli) (`@krayinc/docbase-cli`) がインストール済みであること
+- [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli) (`@krayinc/docbase-cli`) がインストール済みであること（Node.js 24 以上が必要）
 - DocBase CLIで認証済みであること（`docbase auth login`）
 
 ### DocBase CLI のインストール
 
 ```bash
-npm install -g @krayinc/docbase-cli
+npm install --ignore-scripts -g @krayinc/docbase-cli
 ```
 
 ### 認証
@@ -52,7 +52,14 @@ npm install -g @krayinc/docbase-cli
 docbase auth login
 ```
 
-DocBaseのAPIトークンとチーム名を入力します。APIトークンは [DocBaseの設定画面](https://help.docbase.io/posts/45703#アクセストークン) から取得できます。
+ブラウザが開き、DocBase の OAuth 認証が始まります。認証後、トークンは自動的に保存されます。
+
+APIトークンを使う場合は、代わりに以下の環境変数を設定します。APIトークンは [DocBaseの設定画面](https://help.docbase.io/posts/45703#アクセストークン) から取得できます。
+
+```bash
+export DOCBASE_TEAM_DOMAIN=your-team-domain
+export DOCBASE_TOKEN=your-api-token
+```
 
 ## インストール
 
@@ -78,10 +85,10 @@ git clone https://github.com/krayinc/docbase-marketplace.git
 
 # プロジェクトレベル
 mkdir -p .agents/skills
-cp -r docbase-marketplace/skills/docbase-cli .agents/skills/
+cp -r docbase-marketplace/skills/use .agents/skills/
 
 # ユーザーレベル
-cp -r docbase-marketplace/skills/docbase-cli ~/.agents/skills/
+cp -r docbase-marketplace/skills/use ~/.agents/skills/
 ```
 
 それぞれCodexを再起動してください。
