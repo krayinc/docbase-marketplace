@@ -37,13 +37,13 @@ A skill that enables AI agents to operate DocBase through the [DocBase CLI](http
 ## Prerequisites
 
 - Claude Code, Gemini CLI, Codex CLI, or Cursor installed
-- [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli) (`@krayinc/docbase-cli`) installed
+- [DocBase CLI](https://www.npmjs.com/package/@krayinc/docbase-cli) (`@krayinc/docbase-cli`) installed (requires Node.js 24 or later)
 - Authenticated with DocBase CLI (`docbase auth login`)
 
 ### Install DocBase CLI
 
 ```bash
-npm install -g @krayinc/docbase-cli
+npm install --ignore-scripts -g @krayinc/docbase-cli
 ```
 
 ### Authentication
@@ -52,7 +52,14 @@ npm install -g @krayinc/docbase-cli
 docbase auth login
 ```
 
-Enter your DocBase API token and team name. You can generate an API token from your [DocBase settings](https://help.docbase.io/posts/45703#アクセストークン).
+A browser opens and starts the DocBase OAuth flow. The token is saved automatically after authentication.
+
+To use an API token instead, set the following environment variables. You can generate an API token from your [DocBase settings](https://help.docbase.io/posts/45703#アクセストークン).
+
+```bash
+export DOCBASE_TEAM_DOMAIN=your-team-domain
+export DOCBASE_TOKEN=your-api-token
+```
 
 ## Installation
 
@@ -78,10 +85,10 @@ git clone https://github.com/krayinc/docbase-marketplace.git
 
 # Project-level
 mkdir -p .agents/skills
-cp -r docbase-marketplace/skills/docbase-cli .agents/skills/
+cp -r docbase-marketplace/skills/use .agents/skills/
 
 # Or user-level
-cp -r docbase-marketplace/skills/docbase-cli ~/.agents/skills/
+cp -r docbase-marketplace/skills/use ~/.agents/skills/
 ```
 
 Restart Codex after installation.
