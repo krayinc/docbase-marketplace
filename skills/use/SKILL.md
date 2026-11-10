@@ -59,7 +59,7 @@ docbase posts create --title "タイトル" --draft --body-file ./body.md --tags
 - `-t, --title` タイトル（必須）
 - `-b, --body` 本文（Markdown）／ `-F, --body-file <path>` 本文をファイルから読み込み
 - `-d, --draft` 下書きとして投稿
-- `--tags <tags...>` タグ（複数指定可）
+- `--tags <tags...>` タグ（複数指定可。update ではタグ全体を置き換える）
 - `-s, --scope` 公開範囲: `everyone` / `group` / `private`（既定: private）
 - `--group-ids <ids...>` 公開グループID（scope=group のときに必要）
 - `--no-notice` 通知しない
@@ -97,10 +97,10 @@ docbase posts patch-body <id> \
   --no-notice
 ```
 
-- 行番号は1始まりで、`end` の行も含む。`\r\n` で1行と数える
+- 行番号は1始まりで、`end` の行も含む。`\r\n` も `\n` も1つの改行と数える。本文が改行で終わるときは、最後に空の行が1行ある
 - `old_content` は `start`〜`end` の行の現在の内容、`content` は置き換え後の内容。どちらも複数行は `\n` でつなぐ
 - `old_content` が一致しないと 409 Conflict。`posts get` で最新の本文を取り直してやり直す
-- `--op` は複数指定でき、まとめて適用される（1つでも失敗すれば何も変わらない）。範囲は重ねない
+- `--op` は複数指定でき、まとめて適用される（1つでも失敗すれば何も変わらない）。行番号はどれも変更前の本文で数える。範囲が重なると 400
 - 自分で書いた直後など本文が分かっていれば、行番号を見るための `get` は不要
 
 ### 応答の確認
