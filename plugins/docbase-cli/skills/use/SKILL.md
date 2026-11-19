@@ -155,6 +155,7 @@ docbase groups remove-users <group-id> --user-ids 1 2 3
 docbase tags list
 docbase good-jobs create <post-id>
 docbase attachments upload --file /path/to/file
+docbase attachments upload --file /path/to/file --direct   # 100MB を超えるファイル(画像 20MB・それ以外 500MB まで)はストレージに直接送る
 docbase attachments download <file-id> -o /path/to/save
 ```
 
